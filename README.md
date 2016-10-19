@@ -10,3 +10,9 @@ You can now access the URL `http://localhost:3000/api/ls?path=.` and you should 
 
 Also try:
 `http://localhost:3000/api/cat?path=app.js`
+
+## TODOs ##
+
+* Support POST - creating a new file
+* Support PUT - changing the contents of an existing file
+* Create a new express Router for GUI routing
