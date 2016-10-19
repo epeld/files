@@ -4,7 +4,9 @@ var express = require('express');
 var bodyparser = require('body-parser');
 var files = require('./files');
 
-function api() {
+function api(baseDir) {
+    baseDir = baseDir || './';
+
     /*
      *  Router Setup
      */
@@ -17,11 +19,11 @@ function api() {
      *  Commands
      */
     router.get('/ls', function(req, res) {
-	res.json(files.readSubdir([req.query.path]));
+	res.json(files.readSubdir([baseDir, req.query.path], baseDir));
     });
 
     router.get('/cat', function(req, res) {
-	res.json(files.readFile([req.query.path]));
+	res.json(files.readFile([baseDir, req.query.path], baseDir));
     });
     
     return router;

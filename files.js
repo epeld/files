@@ -4,14 +4,15 @@ var p = require('path');
 var fs = require('fs');
 var _ = require('underscore');
 
-function isBelowBasedir(path) {
-    return !p.relative('', path).startsWith('..');
+function isBelowBasedir(path, baseDir) {
+    return !p.relative(baseDir, path).startsWith('..');
 };
 
-function resolvePath(components) {
+function resolvePath(components, baseDir) {
+    baseDir = baseDir || './';
     var path = p.resolve.apply(null, components);
     console.log('Resolved', path);
-    if(!isBelowBasedir(path)) {
+    if(!isBelowBasedir(path, baseDir)) {
 	throw 'Cannot access directories below basedir';
     }
     return path;
@@ -31,8 +32,8 @@ function statToObject(stat) {
     }
 };
 
-function readSubdir(components) {
-    var path = resolvePath(components);
+function readSubdir(components, baseDir) {
+    var path = resolvePath(components, baseDir);
     var files = fs.readdirSync(path);
     
     return _.map(files, function(file) {
@@ -46,8 +47,8 @@ function readSubdir(components) {
     });
 };
 
-function readFile(components) {
-    var path = resolvePath(components);
+function readFile(components, baseDir) {
+    var path = resolvePath(components, baseDir);
     return fs.readFileSync(path).toString();
 };
 
