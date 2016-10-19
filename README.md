@@ -15,4 +15,5 @@ Also try:
 
 * Support POST - creating a new file
 * Support PUT - changing the contents of an existing file
+* Support filtering in GET-requests
 * Create a new express Router for GUI routing
