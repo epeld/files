@@ -14,14 +14,32 @@ angular.module('files', [])
 
 .directive('fsSimpleExplorer', [function() {
     return {
-	template: '<div class="file-explorer"><div fs-file-view fs-files="getCurrentFileList()" click="fileClicked($file)"/></div>',
+	replace: true,
+	scope: {
+	    getFilesInDirectory: '=fsListDir'
+	},
+	templateUrl: '/partials/simple-explorer',
+	//template: '<div class="file-explorer"><div fs-file-view fs-files="getCurrentFileList()" fs-click="fileClicked($file)"/></div>',
 	link: function(scope, element, attrs) {
+	    var empty = [];
+	    var pathComponents = scope.pathComponents = [];
+
 	    scope.getCurrentFileList = function() {
-		return dummyDirectory;
+		console.log('Fetching', pathComponents.join('/'));
+		if(!scope.getFilesInDirectory) {
+		    console.warn('Can\'t fetch directory listing');
+		    return dummyDirectory;
+		}
+		return scope.getFilesInDirectory(pathComponents);
 	    };
 
 	    scope.fileClicked = function(file) {
-		console.log("AHA: ", file.path);
+		if(file.type === 'directory') {
+		    pathComponents.push(file.name);
+		}
+		else {
+		    console.warn('Clicked on a file', 'TODO');
+		}
 	    };
 	}
     };
@@ -29,6 +47,7 @@ angular.module('files', [])
 
 .directive('fsFileView', [function() {
     return {
+	replace: true,
 	scope: {
 	    files: '=fsFiles',
 	    click: '&fsClick'
