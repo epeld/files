@@ -19,7 +19,6 @@ angular.module('files', [])
 	    getFilesInDirectory: '=fsListDir'
 	},
 	templateUrl: '/partials/simple-explorer',
-	//template: '<div class="file-explorer"><div fs-file-view fs-files="getCurrentFileList()" fs-click="fileClicked($file)"/></div>',
 	link: function(scope, element, attrs) {
 	    var empty = [];
 	    var pathComponents = scope.pathComponents = [];
