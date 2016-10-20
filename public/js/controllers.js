@@ -12,6 +12,21 @@ angular.module('files', [])
     };
 }])
 
+.directive('fsSimpleExplorer', [function() {
+    return {
+	template: '<div class="file-explorer"><div fs-file-view fs-files="getCurrentFileList()" click="fileClicked($file)"/></div>',
+	link: function(scope, element, attrs) {
+	    scope.getCurrentFileList = function() {
+		return dummyDirectory;
+	    };
+
+	    scope.fileClicked = function(file) {
+		console.log("AHA: ", file.path);
+	    };
+	}
+    };
+}])
+
 .directive('fsFileView', [function() {
     return {
 	scope: {
