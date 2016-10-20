@@ -1,2 +1,2 @@
 .file-view
-	div(ng-repeat='file in files') {{ file.name }} - {{ file.type }}
+  div(ng-repeat="file in files | orderBy: 'name' | orderBy: 'type'") {{ file.name }} - {{ file.type }}
