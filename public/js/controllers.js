@@ -1,9 +1,11 @@
 "use strict";
 
+var dummyDirectory = [{"name":"git","path":".git","type":"directory"},{"name":".gitignore","path":".gitignore","type":"file"},{"name":"LICENSE","path":"LICENSE","type":"file"},{"name":"README.md","path":"README.md","type":"file"},{"name":"README.md~","path":"README.md~","type":"file"},{"name":"api.js","path":"api.js","type":"file"},{"name":"api","path":"api","type":"directory"}];
+
 angular.module('files', [])
 
 .controller('fsFileController', ['$scope', function($scope) {
-    $scope.files = [{"name":"git","path":".git","type":"directory"},{"name":".gitignore","path":".gitignore","type":"file"},{"name":"LICENSE","path":"LICENSE","type":"file"},{"name":"README.md","path":"README.md","type":"file"},{"name":"README.md~","path":"README.md~","type":"file"},{"name":"api.js","path":"api.js","type":"file"},{"name":"api","path":"api","type":"directory"}];
+    $scope.files = dummyDirectory;
     
     $scope.testFn = function(file) {
 	console.log("You clicked", file);
