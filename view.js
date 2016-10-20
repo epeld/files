@@ -8,7 +8,11 @@ var pug = require('pug');
 module.exports = router;
 
 router.get('/', function(req, rep) {
-    rep.render('index', { foo : 'bar', title : 'index', message : 'hello' });
+    rep.render('index');
+});
+
+router.get('/partials/:name', function(req, rep) {
+    rep.render('partials/' + req.params.name);
 });
 
 router.use('/public', serveStatic('./public'));
