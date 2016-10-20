@@ -1,0 +1,18 @@
+
+.file-item {
+    background: lightyellow;
+    cursor: pointer;
+    padding: 0.25em;
+}
+
+.file {
+    background: white;
+}
+
+.directory:hover {
+    background: chocolate;
+}
+
+.file:hover {
+    background: lightblue;
+}
