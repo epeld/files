@@ -1,3 +1,3 @@
 .file-view
   div(ng-repeat="file in files | orderBy: 'name' | orderBy: 'type'", ng-class="['file-item', file.type]", ng-click="fileClicked(file)")
-   | {{ file.name }} - {{ file.type }}
+   | {{ file.name }}

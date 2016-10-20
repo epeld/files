@@ -2,7 +2,7 @@
 .file-item {
     background: lightyellow;
     cursor: pointer;
-    padding: 0.25em;
+    padding: 1em 0.5em;
 }
 
 .file {
