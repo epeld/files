@@ -4,13 +4,25 @@ angular.module('files', [])
 
 .controller('fsFileController', ['$scope', function($scope) {
     $scope.files = [{"name":"git","path":".git","type":"directory"},{"name":".gitignore","path":".gitignore","type":"file"},{"name":"LICENSE","path":"LICENSE","type":"file"},{"name":"README.md","path":"README.md","type":"file"},{"name":"README.md~","path":"README.md~","type":"file"},{"name":"api.js","path":"api.js","type":"file"},{"name":"api","path":"api","type":"directory"}];
+    
+    $scope.testFn = function(file) {
+	console.log("You clicked", file);
+    };
 }])
 
 .directive('fsFileView', [function() {
     return {
 	scope: {
-	    files: '=fsFiles'
+	    files: '=fsFiles',
+	    click: '&fsClick'
 	},
-	templateUrl: '/partials/file-view'
+	templateUrl: '/partials/file-view',
+	link: function(scope, element, attrs) {
+	    scope.fileClicked = function(file) {
+		scope.click({
+		    $file: file
+		});
+	    }
+	}
     };
 }]);
