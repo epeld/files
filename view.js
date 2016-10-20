@@ -12,6 +12,7 @@ router.get('/', function(req, rep) {
 });
 
 router.get('/partials/:name', function(req, rep) {
+    console.log('Requested', req.params.name);
     rep.render('partials/' + req.params.name);
 });
 

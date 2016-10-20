@@ -1,11 +1,10 @@
 html
-	head
-		title The Magic File Browser
-		script(src='/public/js/lib/angular.js')
-		script(src='/public/js/controllers.js')
-	body(ng-app='files')
-		h1 Check it 
-			a(href='https://github.com/epeld/files') out
+  head
+    title The Magic File Browser
+    script(src='/public/js/lib/angular.js')
+    script(src='/public/js/controllers.js')
+  body(ng-app='files', ng-controller='fsFileController')
+    h1 Check it 
+      a(href='https://github.com/epeld/files') out
 
-		div Here go the files:
-			div(fs-file-view)
+    div(fs-file-view, fs-files='files')
