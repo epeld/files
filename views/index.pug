@@ -3,9 +3,9 @@ html
 		title The Magic File Browser
 		script(src='/public/js/lib/angular.js')
 		script(src='/public/js/controllers.js')
-	body
+	body(ng-app='files')
 		h1 Check it 
 			a(href='https://github.com/epeld/files') out
 
 		div Here go the files:
-			span= foo
+			div(fs-file-view)
