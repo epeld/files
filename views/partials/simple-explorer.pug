@@ -1,6 +1,6 @@
 .file-explorer
   .file-explorer_path Path:
-    span(class='path-component') root
+    .path-component root
     span(ng-repeat='component in files track by $index')
       .path-separator / 
       .path-component {{ component.name }} 
