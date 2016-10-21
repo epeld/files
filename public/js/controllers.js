@@ -69,6 +69,19 @@ angular.module('files', [])
 	link: function(scope, element, attrs) {
 	    var files = scope.files = [];
 
+	    scope.popToDirectory = function(file) {
+		if(file === null) {
+		    // pop to root
+		    files.length = 0;
+		}
+		else {
+		    for(var i = files.length-1; i >= 0; i--) {
+			if(files[i] === file) break;
+			files.pop();
+		    }
+		}
+	    };
+
 	    scope.getCurrentFileList = function() {
 		return scope.getFilesInDirectory(files.length ? files[files.length - 1] : null);
 	    };

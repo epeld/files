@@ -1,7 +1,7 @@
 .file-explorer
   .file-explorer_path Path:
-    .path-component root
+    .path-component(ng-click='popToDirectory(null)') root
     span(ng-repeat='component in files track by $index')
       .path-separator / 
-      .path-component {{ component.name }} 
+      .path-component(ng-click='popToDirectory(component)') {{ component.name }} 
   div(fs-file-view, fs-files='getCurrentFileList().files', fs-click='fileClicked($file)')
