@@ -1,4 +1,4 @@
 .file-explorer
   .file-explorer_path Path:
-    span(ng-repeat='component in pathComponents') {{ component }} 
+    span(ng-repeat='component in pathComponents track by $index') {{ component }} 
   div(fs-file-view, fs-files='getCurrentFileList()', fs-click='fileClicked($file)')
