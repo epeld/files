@@ -10,7 +10,7 @@ function isBelowBasedir(path, baseDir) {
 
 function resolvePath(components, baseDir) {
     baseDir = baseDir || './';
-    var path = p.resolve.apply(null, components);
+    var path = p.join.apply(null, components);
     console.log('Resolved', path);
     if(!isBelowBasedir(path, baseDir)) {
 	throw 'Cannot access directories below basedir';
