@@ -20,3 +20,15 @@ For the API:
 * Support POST - creating a new file
 * Support PUT - changing the contents of an existing file
 * Support filtering in GET-requests
+
+## Current Problems to Solve ##
+
+1. Cannot navigate directly to a file URL (i.e must always start from root)
+
+2. Cannot click on files
+
+3. Cannot manually type path in nav bar (related to 1.)
+
+4. Cannot filter files
+
+5. Cannot sort files
