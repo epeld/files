@@ -4,37 +4,78 @@ var dummyDirectory = [{"name":"git","path":".git","type":"directory"},{"name":".
 
 angular.module('files', [])
 
-.controller('fsFileController', ['$scope', function($scope) {
+.controller('fsFileController', ['$scope', 'lsdir', function($scope, lsdir) {
     $scope.files = dummyDirectory;
+
+    $scope.lsdir = lsdir;
     
     $scope.testFn = function(file) {
-	console.log("You clicked", file);
+	console.log('You clicked', file);
     };
+}])
+
+.factory('lsdir', ['$http', function($http) {
+    var result = {
+	status: 'pending',
+	files: []
+    };
+
+    var last;
+    
+    return function lsdir(file) {
+	if(file && file.type !== 'directory') {
+	    console.error('Not a directory', file);
+	    return;
+	}
+	if(last === file) {
+	    console.log('Returning cached');
+	    return result;
+	}
+
+	// Reset result blob
+	result.status = 'pending';
+	result.files = [];
+
+	$http({
+	    url: '/api/ls',
+	    method: 'GET',
+	    params: {
+		path: file === null ? '/' : file.path
+	    }
+	})
+	.then(function(response) {
+	    console.log('Response', response);
+	    result.status = 'ok';
+	    _.each(response.data, function(x) {
+		result.files.push(x);
+	    });
+	}, function(err) {
+	    result.status = 'error';
+	});
+
+	last = file;
+
+	return result;
+    }
 }])
 
 .directive('fsSimpleExplorer', [function() {
     return {
 	replace: true,
 	scope: {
-	    getFilesInDirectory: '=fsListDir'
+	    getFilesInDirectory: '=fsLsdir'
 	},
 	templateUrl: '/partials/simple-explorer',
 	link: function(scope, element, attrs) {
-	    var empty = [];
-	    var pathComponents = scope.pathComponents = [];
+	    var files = scope.files = [];
 
 	    scope.getCurrentFileList = function() {
-		console.log('Fetching', pathComponents.join('/'));
-		if(!scope.getFilesInDirectory) {
-		    console.warn('Can\'t fetch directory listing');
-		    return dummyDirectory;
-		}
-		return scope.getFilesInDirectory(pathComponents);
+		return scope.getFilesInDirectory(files.length ? files[files.length - 1] : null);
 	    };
 
 	    scope.fileClicked = function(file) {
 		if(file.type === 'directory') {
-		    pathComponents.push(file.name);
+		    files.push(file);
 		}
 		else {
 		    console.warn('Clicked on a file', 'TODO');
